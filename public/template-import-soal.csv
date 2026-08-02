@@ -1,0 +1,4 @@
+subject,question_type,question_text,option_a,option_b,option_c,option_d,option_e,correct_option,correct_options,matrix_left_label,matrix_right_label,matrix_statement_1,matrix_answer_1,matrix_statement_2,matrix_answer_2,matrix_statement_3,matrix_answer_3,explanation
+Matematika,single_choice,"Jika 2 + 3 x 4 = ...",14,20,24,12,10,a,,,,,,,,,"Perkalian didahulukan, jadi hasilnya 14."
+Bahasa Indonesia,multiple_choice,"Pilih kata yang termasuk sinonim ""indah""",cantik,elok,keras,buruk,,,,a|b,,,,,,,,,"Sinonim indah adalah cantik dan elok."
+Biologi,matrix_binary,"Perhatikan pernyataan berikut.",,,,,,,,Benar,Salah,"Membran sel membungkus sel.",left,"Mitokondria adalah inti sel.",right,"Nukleus mengatur aktivitas sel.",left,"Gunakan tabel dua kolom untuk tipe ini."

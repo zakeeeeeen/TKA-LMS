@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25rem 0;
+}
