@@ -188,13 +188,10 @@ export default function Dashboard() {
                             <Reveal delay={200}>
                                 <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                                     <div className="mb-6 flex items-center justify-between">
-                                        <div>
-                                            <div className="flex items-center gap-2">
-                                                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                                                <h3 className="text-lg font-extrabold text-slate-900">Pengerjaan Kuis Terbaru (Live Feed)</h3>
+                                            <div>
+                                                <h3 className="text-lg font-extrabold text-slate-900">Pengerjaan Kuis Terbaru</h3>
+                                                <p className="text-xs text-slate-500 font-medium mt-0.5">5 Siswa terakhir yang baru saja menyelesaikan kuis.</p>
                                             </div>
-                                            <p className="text-xs text-slate-500 font-medium mt-0.5">5 Siswa terakhir yang baru saja menyelesaikan kuis.</p>
-                                        </div>
                                         <Link
                                             href={route('admin.quiz-reports.index', { mode: 'latest' })}
                                             className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline"

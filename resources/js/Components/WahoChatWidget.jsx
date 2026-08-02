@@ -62,6 +62,14 @@ export default function WahoChatWidget() {
         }
     };
 
+    const toggleHistoryMode = () => {
+        if (viewMode === 'chat') {
+            fetchHistory();
+        } else {
+            setViewMode('chat');
+        }
+    };
+
     const handleNewChat = () => {
         setSessionId('');
         setMessages([]);
@@ -293,8 +301,8 @@ export default function WahoChatWidget() {
                                             className={`flex gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}
                                         >
                                             {!isUser && (
-                                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm text-white shadow-sm border border-blue-500">
-                                                    🤖
+                                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white shadow-sm border border-blue-500">
+                                                    <Icon icon="lucide:bot" className="w-4 h-4 text-white" />
                                                 </div>
                                             )}
 
@@ -317,8 +325,8 @@ export default function WahoChatWidget() {
 
                                 {loading && (
                                     <div className="flex items-center gap-2 text-slate-400 text-xs italic">
-                                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
-                                            🤖
+                                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-white">
+                                            <Icon icon="lucide:bot" className="w-3.5 h-3.5 text-white" />
                                         </div>
                                         <div className="flex gap-1 items-center bg-white border border-slate-200 px-3 py-2 rounded-xl">
                                             <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-bounce"></span>
@@ -349,9 +357,7 @@ export default function WahoChatWidget() {
                                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white transition hover:bg-blue-700 disabled:opacity-40 shadow-sm"
                                     title="Kirim"
                                 >
-                                    <svg className="h-4 w-4 translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                                    </svg>
+                                    <Icon icon="lucide:send" className="w-4 h-4 text-white" />
                                 </button>
                             </form>
                         </div>
