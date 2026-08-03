@@ -1,5 +1,4 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Reveal from '@/Components/Reveal';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Icon } from '@iconify/react';
 
@@ -71,121 +70,115 @@ export default function Dashboard() {
             {isStudent ? (
                 <div className="space-y-6">
                     {/* Welcome Banner */}
-                    <Reveal>
-                        <div className="rounded-2xl bg-[#89d0f0] p-6 text-slate-900 shadow-md sm:p-8">
-                            <h3 className="text-2xl font-bold">Selamat datang kembali, {auth.user.name}!</h3>
-                            <p className="mt-2 text-sm text-slate-800 max-w-xl font-medium">
-                                Kelola dan lanjutkan pembelajaran Anda pada daftar kursus terdaftar di bawah ini.
-                            </p>
-                        </div>
-                    </Reveal>
+                    <div className="rounded-2xl bg-[#89d0f0] p-6 text-slate-900 shadow-md sm:p-8">
+                        <h3 className="text-2xl font-bold">Selamat datang kembali, {auth.user.name}!</h3>
+                        <p className="mt-2 text-sm text-slate-800 max-w-xl font-medium">
+                            Kelola dan lanjutkan pembelajaran Anda pada daftar kursus terdaftar di bawah ini.
+                        </p>
+                    </div>
 
                     {/* Enrolled Courses */}
-                    <Reveal delay={150}>
-                        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-900">Kursus Terdaftar</h3>
-                                    <p className="text-sm text-slate-500">Daftar semua kursus aktif yang sedang Anda ikuti.</p>
-                                </div>
-                                <Link
-                                    href={route('student.courses.index')}
-                                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 shadow-sm"
-                                >
-                                    Cari Kursus Lainnya
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </Link>
+                    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                                <h3 className="text-xl font-bold text-slate-900">Kursus Terdaftar</h3>
+                                <p className="text-sm text-slate-500">Daftar semua kursus aktif yang sedang Anda ikuti.</p>
                             </div>
+                            <Link
+                                href={route('student.courses.index')}
+                                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 shadow-sm"
+                            >
+                                Cari Kursus Lainnya
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </Link>
+                        </div>
 
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                {(activeCourses ?? []).map((course, idx) => (
-                                    <Reveal key={course.id} delay={idx * 100}>
-                                        <div className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md h-full">
-                                            <div>
-                                                {course.thumbnail_url ? (
-                                                    <div className="h-48 overflow-hidden border-b border-slate-100">
-                                                        <img
-                                                            src={course.thumbnail_url}
-                                                            alt={course.name}
-                                                            className="h-full w-full object-cover"
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex h-48 items-center justify-center bg-[#89d0f0]">
-                                                        <Icon icon="lucide:book-open" className="w-12 h-12 text-slate-800" />
-                                                    </div>
-                                                )}
-
-                                                <div className="p-5">
-                                                    <h4 className="text-lg font-bold text-slate-900">
-                                                        {course.name}
-                                                    </h4>
-
-                                                    {course.description && (
-                                                        <p className="mt-2 text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                                            {course.description}
-                                                        </p>
-                                                    )}
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            {(activeCourses ?? []).map((course, idx) => (
+                                <div key={course.id}>
+                                    <div className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md h-full">
+                                        <div>
+                                            {course.thumbnail_url ? (
+                                                <div className="h-48 overflow-hidden border-b border-slate-100">
+                                                    <img
+                                                        src={course.thumbnail_url}
+                                                        alt={course.name}
+                                                        className="h-full w-full object-cover"
+                                                    />
                                                 </div>
-                                            </div>
+                                            ) : (
+                                                <div className="flex h-48 items-center justify-center bg-[#89d0f0]">
+                                                    <Icon icon="lucide:book-open" className="w-12 h-12 text-slate-800" />
+                                                </div>
+                                            )}
 
-                                            <div className="px-5 pb-5 pt-2">
-                                                <Link
-                                                    href={route('student.courses.show', course.id)}
-                                                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 shadow-sm"
-                                                >
-                                                    Masuk Kursus
-                                                </Link>
+                                            <div className="p-5">
+                                                <h4 className="text-lg font-bold text-slate-900">
+                                                    {course.name}
+                                                </h4>
+
+                                                {course.description && (
+                                                    <p className="mt-2 text-sm text-slate-600 leading-relaxed line-clamp-3">
+                                                        {course.description}
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
-                                    </Reveal>
-                                ))}
-                            </div>
 
-                            {(activeCourses ?? []).length === 0 && (
-                                <div className="rounded-2xl border border-dashed border-slate-200 py-12 text-center">
-                                    <svg className="mx-auto h-12 w-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                    </svg>
-                                    <p className="mt-4 text-base font-semibold text-slate-700">Belum Ada Kursus Terdaftar</p>
-                                    <p className="mt-1 text-sm text-slate-500">Anda belum mendaftar atau menyetujui kursus apa pun saat ini.</p>
-                                    <Link
-                                        href={route('student.courses.index')}
-                                        className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-                                    >
-                                        Jelajahi Katalog Kursus
-                                    </Link>
+                                        <div className="px-5 pb-5 pt-2">
+                                            <Link
+                                                href={route('student.courses.show', course.id)}
+                                                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 shadow-sm"
+                                            >
+                                                Masuk Kursus
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
-                            )}
+                            ))}
                         </div>
-                    </Reveal>
+
+                        {(activeCourses ?? []).length === 0 && (
+                            <div className="rounded-2xl border border-dashed border-slate-200 py-12 text-center">
+                                <svg className="mx-auto h-12 w-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                                <p className="mt-4 text-base font-semibold text-slate-700">Belum Ada Kursus Terdaftar</p>
+                                <p className="mt-1 text-sm text-slate-500">Anda belum mendaftar atau menyetujui kursus apa pun saat ini.</p>
+                                <Link
+                                    href={route('student.courses.index')}
+                                    className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                                >
+                                    Jelajahi Katalog Kursus
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 </div>
             ) : (
                 <>
                     <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                        {statCards.map((card, idx) => (
-                            <Reveal key={card.label} delay={idx * 100}>
-                                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
-                                    <div className="flex items-start justify-between">
-                                        <div className="flex-1">
-                                            <p className="mb-1 text-xs font-extrabold uppercase tracking-wider text-slate-500">{card.label}</p>
-                                            <p className="text-3xl font-black text-slate-900">{card.value}</p>
-                                        </div>
-                                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-md">
-                                            {card.icon}
-                                        </div>
+                        {statCards.map((card) => (
+                            <div key={card.label} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
+                                <div className="flex items-start justify-between">
+                                    <div className="flex-1">
+                                        <p className="mb-1 text-xs font-extrabold uppercase tracking-wider text-slate-500">{card.label}</p>
+                                        <p className="text-3xl font-black text-slate-900">{card.value}</p>
+                                    </div>
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-md">
+                                        {card.icon}
                                     </div>
                                 </div>
-                            </Reveal>
+                            </div>
                         ))}
                     </div>
 
                     {/* Real-time Feed: Pengerjaan Kuis Terbaru */}
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                         <div className="space-y-6 lg:col-span-2">
-                            <Reveal delay={200}>
+                            <div>
                                 <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                                     <div className="mb-6 flex items-center justify-between">
                                             <div>
@@ -240,12 +233,12 @@ export default function Dashboard() {
                                         </div>
                                     )}
                                 </div>
-                            </Reveal>
+                            </div>
                         </div>
 
                         {/* Quick Actions Panel */}
                         <div className="space-y-6">
-                            <Reveal delay={300}>
+                            <div>
                                 <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                                     <h3 className="mb-4 text-base font-extrabold text-slate-900">Akses Pintar (Quick Actions)</h3>
                                     <div className="grid grid-cols-2 gap-3">
@@ -267,7 +260,7 @@ export default function Dashboard() {
                                         </Link>
                                     </div>
                                 </div>
-                            </Reveal>
+                            </div>
                         </div>
                     </div>
                 </>
