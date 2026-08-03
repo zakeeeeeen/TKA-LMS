@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseContentGroup;
 use App\Models\QuestionPackage;
+use App\Services\WebpConverter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -56,7 +57,7 @@ class CourseController extends Controller
 
         $thumbnailPath = null;
         if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('courses', 'public');
+            $thumbnailPath = WebpConverter::convertAndStore($request->file('thumbnail'), 'courses');
         }
 
         $course = Course::create([
@@ -124,7 +125,7 @@ class CourseController extends Controller
         ];
 
         if ($request->hasFile('thumbnail')) {
-            $updateData['thumbnail'] = $request->file('thumbnail')->store('courses', 'public');
+            $updateData['thumbnail'] = WebpConverter::convertAndStore($request->file('thumbnail'), 'courses');
         }
 
         $course->update($updateData);

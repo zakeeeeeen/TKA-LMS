@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\QuestionPackage;
 use App\Models\Subject;
+use App\Services\WebpConverter;
 use App\Support\QuestionTypeHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +69,7 @@ class QuestionController extends Controller
         $payload = $this->prepareQuestionPayload($validated);
         $payload['user_id'] = auth()->id();
         $payload['image_path'] = $request->hasFile('image')
-            ? $request->file('image')->store('questions', 'public')
+            ? WebpConverter::convertAndStore($request->file('image'), 'questions')
             : null;
         $payload = $this->syncOptionImagePaths($request, $payload);
 
@@ -118,7 +119,7 @@ class QuestionController extends Controller
                 Storage::disk('public')->delete($question->image_path);
             }
 
-            $payload['image_path'] = $request->file('image')->store('questions', 'public');
+            $payload['image_path'] = WebpConverter::convertAndStore($request->file('image'), 'questions');
         }
 
         $payload = $this->syncOptionImagePaths($request, $payload, $question);
@@ -333,7 +334,7 @@ class QuestionController extends Controller
                 Storage::disk('public')->delete($currentPath);
             }
 
-            $payload[$imagePathField] = $request->file($imageInputField)->store('questions/options', 'public');
+            $payload[$imagePathField] = WebpConverter::convertAndStore($request->file($imageInputField), 'questions/options');
         }
 
         return $payload;
@@ -369,7 +370,7 @@ class QuestionController extends Controller
             'image' => ['required', 'image', 'max:5120'],
         ]);
 
-        $path = $request->file('image')->store('question_images', 'public');
+        $path = WebpConverter::convertAndStore($request->file('image'), 'question_images');
         $url = Storage::url($path);
 
         return response()->json([

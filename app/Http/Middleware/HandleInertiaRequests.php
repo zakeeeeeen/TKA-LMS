@@ -41,11 +41,12 @@ class HandleInertiaRequests extends Middleware
         $defaults = [
             'site_title' => 'TKA LMS - Tes Kemampuan Akademik',
             'site_description' => 'Platform simulasi ujian & latihan soal terintegrasi untuk SD, SMP, dan SMA dengan pembahasan AI.',
-            'hero_badge' => '💡 AI-Powered Learning Platform TKA',
+            'hero_badge' => 'AI-Powered Learning Platform TKA',
             'hero_title' => 'Tingkatkan Kemampuan Akademikmu Bersama',
             'hero_subtitle' => 'Platform simulasi ujian & latihan soal terintegrasi untuk SD, SMP, dan SMA. Dilengkapi analisis hasil mendalam serta pembahasan cerdas berbasis AI.',
             'hero_image' => '/murid.png',
             'favicon_image' => '/icon.png',
+            'og_image' => '/icon.png',
             'seo_keywords' => 'TKA LMS, Tryout SD, Tryout SMP, Tryout SMA, Simulasi Ujian, Pembahasan AI',
             'seo_author' => 'TKA LMS Team',
             'iconify_script' => '<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>',

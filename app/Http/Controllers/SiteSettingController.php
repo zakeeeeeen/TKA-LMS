@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Services\WebpConverter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -21,11 +22,12 @@ class SiteSettingController extends Controller
         $defaults = [
             'site_title' => 'TKA LMS - Tes Kemampuan Akademik',
             'site_description' => 'Platform simulasi ujian & latihan soal terintegrasi untuk SD, SMP, dan SMA dengan pembahasan AI.',
-            'hero_badge' => '💡 AI-Powered Learning Platform TKA',
+            'hero_badge' => 'AI-Powered Learning Platform TKA',
             'hero_title' => 'Tingkatkan Kemampuan Akademikmu Bersama',
             'hero_subtitle' => 'Platform simulasi ujian & latihan soal terintegrasi untuk SD, SMP, dan SMA. Dilengkapi analisis hasil mendalam serta pembahasan cerdas berbasis AI.',
             'hero_image' => '/murid.png',
             'favicon_image' => '/icon.png',
+            'og_image' => '/icon.png',
             'seo_keywords' => 'TKA LMS, Tryout SD, Tryout SMP, Tryout SMA, Simulasi Ujian, Pembahasan AI',
             'seo_author' => 'TKA LMS Team',
             'iconify_script' => '<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>',
@@ -53,7 +55,8 @@ class SiteSettingController extends Controller
             'seo_author' => 'nullable|string|max:255',
             'iconify_script' => 'nullable|string|max:1000',
             'hero_image_file' => 'nullable|image|mimes:png,jpg,jpeg,svg,webp|max:5120',
-            'favicon_image_file' => 'nullable|image|mimes:png,ico,svg|max:2048',
+            'favicon_image_file' => 'nullable|image|mimes:png,ico,svg,webp,jpg,jpeg|max:2048',
+            'og_image_file' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:5120',
         ]);
 
         // Text settings
@@ -76,13 +79,18 @@ class SiteSettingController extends Controller
 
         // Handle Image Uploads
         if ($request->hasFile('hero_image_file')) {
-            $path = $request->file('hero_image_file')->store('settings', 'public');
+            $path = WebpConverter::convertAndStore($request->file('hero_image_file'), 'settings');
             Setting::set('hero_image', Storage::url($path));
         }
 
         if ($request->hasFile('favicon_image_file')) {
-            $path = $request->file('favicon_image_file')->store('settings', 'public');
+            $path = WebpConverter::convertAndStore($request->file('favicon_image_file'), 'settings');
             Setting::set('favicon_image', Storage::url($path));
+        }
+
+        if ($request->hasFile('og_image_file')) {
+            $path = WebpConverter::convertAndStore($request->file('og_image_file'), 'settings');
+            Setting::set('og_image', Storage::url($path));
         }
 
         return redirect()->back()->with('success', 'Pengaturan situs berhasil disimpan.');
