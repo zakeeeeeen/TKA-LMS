@@ -78,6 +78,7 @@ Sebelum memulai instalasi, pastikan komputer Anda telah memenuhi spesifikasi ber
 *   **Composer** $\ge$ 2.x
 *   **Node.js** $\ge$ 18.x
 *   **PNPM** $\ge$ 9.x (atau npm/yarn)
+*   **Redis Server** (Opsional, untuk optimasi cache, session, dan queue di production)
 
 ---
 
@@ -130,6 +131,40 @@ Projek ini memiliki shortcut perintah `composer dev` yang sangat praktis. Perint
 composer dev
 ```
 Aplikasi Anda sekarang dapat diakses di: **[http://localhost:8000](http://localhost:8000)**.
+
+---
+
+## ⚡ Penggunaan & Konfigurasi Redis (Opsional)
+
+Untuk meningkatkan performa aplikasi (terutama di server produksi/staging), Anda dapat menggunakan **Redis** untuk mengelola cache, session, serta antrean job (queue).
+
+### 1. Prasyarat
+Pastikan ekstensi PHP Redis (`phpredis`) telah terpasang di sistem Anda, atau gunakan package `predis/predis` dengan mengubah konfigurasi client di `.env`.
+
+### 2. Konfigurasi Lingkungan (`.env`)
+Ubah nilai driver pada `.env` Anda menjadi `redis` seperti berikut:
+
+```env
+# Gunakan Redis untuk cache sistem
+CACHE_STORE=redis
+
+# Gunakan Redis untuk penyimpanan session user
+SESSION_DRIVER=redis
+
+# Gunakan Redis untuk antrean tugas latar belakang (Job Queue)
+QUEUE_CONNECTION=redis
+
+# Konfigurasi Koneksi Redis
+REDIS_CLIENT=phpredis
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+```
+
+### 3. Keuntungan Penggunaan Redis di TKA-LMS
+*   **Kecepatan Sesi (Session)**: Pengalaman login siswa dan status pengerjaan kuis/ujian tetap terjaga dengan latensi sangat rendah.
+*   **Antrean Responsif (Queue)**: Mengirimkan pesan chat AI Tutor atau pemrosesan laporan kuis berat di latar belakang secara asinkron tanpa memperlambat loading halaman siswa.
+*   **Caching Optimal**: Mempercepat pemuatan data statistik ujian admin, daftar materi, dan konfigurasi situs.
 
 ---
 
